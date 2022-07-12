@@ -1,60 +1,55 @@
 https://leetcode.com/problems/reverse-pairs/
 
 class Solution {
+    int count, arr[];
     
     public int reversePairs(int[] nums) {
-        int c = mergeSort(nums, 0, nums.length-1);
-        return c;
+        if(nums.length == 1) return 0;
+        
+        count = 0;
+        arr = nums.clone();
+        
+        helper(0, nums.length - 1);
+        
+        return count;
     }
     
-    public int mergeSort(int[] nums, int low, int high){
-        if(low>=high){
-            return 0;
-        }
-        int mid= (low+high)/2;
-
-        int inv= mergeSort(nums, low, mid);
-        inv+= mergeSort(nums, mid+1, high);
-        inv+= merge(nums, low, mid, high);
-        return inv;
+    private void helper(int s, int e){
+        if (s >= e) return;
+        
+        int mid = s + (e - s) / 2;
+        
+        helper(s, mid);
+        helper(mid + 1, e);
+        merge(s, mid + 1, e);
     }
-
-    public int merge(int[] nums, int low, int mid, int high){
-        int cnt=0;
-        int j= mid+1;
-        for(int i=low;i<=mid;i++){
-            while(j<=high && nums[i]>(2*(long)nums[j])){
+    
+    private void merge(int s, int mid, int e){
+        int i = s, j = mid;
+        
+        for(; i < mid; i++) {
+            while(j<=e && arr[i] > (2 * (long) arr[j])) {
                 j++;
             }
-            cnt= cnt+(j-(mid+1));
+            count += j - mid;
         }
-       ArrayList<Integer> temp = new ArrayList();
-        int left=low;
-        int right= mid+1;
-        while(left<=mid && right<= high){
-            if(nums[left]< nums[right]){
-                temp.add(nums[left]);
-                left++;
-            }
-            else{
-                temp.add(nums[right]);
-                right++;
-            }
+        
+        combine(s, mid, e);
+    }
+    
+    private void combine(int s, int mid, int e){
+        int[] temp = new int[e - s + 1];
+        int i = s, j = mid, k = 0;
+        
+        while (k < temp.length){
+            if ((j > e) || (i < mid && arr[i] < arr[j])) temp[k] = arr[i++];
+            else temp[k] = arr[j++];
+            
+            k++;
         }
-
-        while(left<=mid){
-            temp.add(nums[left]);
-            left++;
+        
+        for (i = 0; i < temp.length; i++){
+            arr[i + s] = temp[i];
         }
-         while(right<=high){
-            temp.add(nums[right]);
-            right++;
-        }
-
-        for(int i=low;i<=high;i++){
-            nums[i]= temp.get(i-low);
-        }
-
-        return cnt;
     }
 }

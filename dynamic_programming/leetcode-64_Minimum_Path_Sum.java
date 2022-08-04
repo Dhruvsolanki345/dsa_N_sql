@@ -58,3 +58,25 @@ class Solution {
         return prev[n-1];
     }
 }
+
+// Without extra space i.e. modifing input for storage
+class Solution {    
+    public int minPathSum(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+        
+        if(m == 1 && n == 1) return grid[0][0];
+        
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                int min = (int) 1e9;
+                
+                if(i-1 > -1) min = grid[i-1][j];
+                if(j-1 > -1) min = Math.min(min, grid[i][j-1]);
+                
+                grid[i][j] += (min >= 1e9) ? 0 : min;
+            }
+        }
+        
+        return grid[m-1][n-1];
+    }
+}

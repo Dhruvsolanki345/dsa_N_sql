@@ -14,3 +14,12 @@ select name, population, area from world where population >= 25000000
 -- https://leetcode.com/problems/recyclable-and-low-fat-products/
 
 select product_id from products where low_fats = "Y" and recyclable = "Y"
+
+
+-- https://leetcode.com/problems/find-customer-referee/
+-- 584. Find Customer Referee
+
+-- using <>
+select name from customer where referee_id <> 2 or referee_id is null;
+-- using !=
+select name from customer where referee_id != 2 or referee_id is null;

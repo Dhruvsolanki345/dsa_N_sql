@@ -46,3 +46,19 @@ select employee_id,
 if(employee_id % 2 = 1 and name not like "M%", salary, 0) as bonus 
 from employees 
 order by employee_id;
+
+
+-- https://leetcode.com/problems/swap-salary/solution/
+-- 627. Swap Salary
+
+-- using case-when-else
+update salary
+set
+    sex = case sex
+        when "m" then "f"
+        else "m"
+    end;
+    
+-- using if
+update salary
+set sex = if(sex = "m", "f", "m");

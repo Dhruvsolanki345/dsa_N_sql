@@ -62,3 +62,19 @@ set
 -- using if
 update salary
 set sex = if(sex = "m", "f", "m");
+
+
+-- https://leetcode.com/problems/delete-duplicate-emails/solution/
+-- 196. Delete Duplicate Emails
+
+-- using from
+delete p1 from person p1,
+    person p2
+where 
+    p1.email = p2.email and p1.id > p2.id;
+    
+-- using equivalent from join
+delete p1 from person p1
+join person p2
+on p1.email = p2.email
+where p1.id > p2.id;

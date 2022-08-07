@@ -37,3 +37,12 @@ from customers c
 left join orders o
 on c.id = o.customerid
 where o.customerid is null;
+
+
+-- https://leetcode.com/problems/calculate-special-bonus/
+-- 1873. Calculate Special Bonus
+
+select employee_id, 
+if(employee_id % 2 = 1 and name not like "M%", salary, 0) as bonus 
+from employees 
+order by employee_id;

@@ -78,3 +78,12 @@ delete p1 from person p1
 join person p2
 on p1.email = p2.email
 where p1.id > p2.id;
+
+
+-- https://leetcode.com/problems/fix-names-in-a-table/
+-- 1667. Fix Names in a Table
+
+select user_id, 
+concat(upper(substr(name,1,1)), lower(substr(name,2))) as name
+from users
+order by user_id;

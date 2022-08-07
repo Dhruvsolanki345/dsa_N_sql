@@ -98,3 +98,11 @@ group_concat(distinct product order by product asc separator ",") as products --
 from activities
 group by sell_date
 order by sell_date;
+
+
+-- https://leetcode.com/problems/patients-with-a-condition/
+-- 1527. Patients With a Condition
+
+select * from patients
+where conditions like "% DIAB1%" or
+    conditions like "DIAB1%";

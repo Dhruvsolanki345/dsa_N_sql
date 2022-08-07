@@ -87,3 +87,14 @@ select user_id,
 concat(upper(substr(name,1,1)), lower(substr(name,2))) as name
 from users
 order by user_id;
+
+
+-- https://leetcode.com/problems/group-sold-products-by-the-date/
+-- 1484. Group Sold Products By The Date
+
+select sell_date, 
+count(distinct product) as num_sold,
+group_concat(distinct product order by product asc separator ",") as products -- separator default value is ","
+from activities
+group by sell_date
+order by sell_date;

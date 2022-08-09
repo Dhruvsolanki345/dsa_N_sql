@@ -148,3 +148,30 @@ select product_id, 'store2' as store, store2 as price from products where store2
 union
 select product_id, 'store3' as store, store3 as price from products where store3 is not null
 order by 1,2 asc;
+
+
+-- https://leetcode.com/problems/tree-node/solution/
+-- 608. Tree Node
+
+-- using if
+select id,
+if(isnull(p_id), 'Root', if(id in (select a.p_id from tree a), 'Inner', 'Leaf')) type
+from tree order by id;
+
+-- using case-when
+select id,
+case when id = (select a.id from tree a where a.p_id is null) then 'Root'
+    when id in (select a.p_id from tree a) then 'Inner'
+    else 'Leaf'
+    end as type
+from tree order by id;
+
+-- using union
+select id, 'Root' as type from tree where p_id IS NULL
+union
+select id, 'Inner' AS type from tree
+    where id in (select distinct p_id from tree where p_id is not null) and p_id is not null
+union
+select id, 'Leaf' AS type from tree
+    where id not in (select distinct p_id from tree where p_id is not null) and p_id is not null
+ORDER BY id;

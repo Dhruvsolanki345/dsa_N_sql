@@ -136,3 +136,15 @@ right join salaries s
 on e.employee_id = s.employee_id
 where e.name is null
 order by employee_id;
+
+
+-- https://leetcode.com/problems/rearrange-products-table/
+-- 1795. Rearrange Products Table
+
+-- Using union
+select product_id, 'store1' as store, store1 as price from products where store1 is not null
+union
+select product_id, 'store2' as store, store2 as price from products where store2 is not null
+union
+select product_id, 'store3' as store, store3 as price from products where store3 is not null
+order by 1,2 asc;

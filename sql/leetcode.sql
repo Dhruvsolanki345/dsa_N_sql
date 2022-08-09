@@ -175,3 +175,10 @@ union
 select id, 'Leaf' AS type from tree
     where id not in (select distinct p_id from tree where p_id is not null) and p_id is not null
 ORDER BY id;
+
+
+-- https://leetcode.com/problems/second-highest-salary/
+-- 176. Second Highest Salary
+
+select (select distinct salary from employee
+        order by salary desc limit 1 offset 1) as secondhighestsalary;

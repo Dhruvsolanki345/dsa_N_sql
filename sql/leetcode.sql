@@ -106,3 +106,33 @@ order by sell_date;
 select * from patients
 where conditions like "% DIAB1%" or
     conditions like "DIAB1%";
+
+
+-- https://leetcode.com/problems/employees-with-missing-information/
+-- 1965. Employees With Missing Information
+
+-- Note: full outer join doesn't in MySQL
+
+-- 'using' keyword
+select employee_id from employees
+left join salaries
+using (employee_id)
+where salary is null
+union
+select employee_id from employees
+right join salaries
+using (employee_id)
+where name is null
+order by employee_id;
+
+-- 'on' keyword
+select e.employee_id from employees e
+left join salaries s
+on e.employee_id = s.employee_id
+where s.salary is null
+union
+select s.employee_id from employees e
+right join salaries s
+on e.employee_id = s.employee_id
+where e.name is null
+order by employee_id;

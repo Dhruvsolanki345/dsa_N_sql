@@ -22,3 +22,11 @@ group by customer_id;
 select distinct viewer_id as id from views
 where viewer_id = author_id
 order by viewer_id;
+
+
+-- https://leetcode.com/problems/rising-temperature/
+-- 197. Rising Temperature
+
+select w1.id as id 
+from weather w1 join weather w2
+on datediff(w1.recordDate, w2.recordDate) = 1 and w1.temperature > w2.temperature;

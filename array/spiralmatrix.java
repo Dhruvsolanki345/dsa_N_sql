@@ -1,4 +1,4 @@
-//This is a java program to print the matrix in the spiral form
+//Just a Program to print spira matrix by sam-tripathi
 public class Main
 {
     public static void spiralPrint(int m,int n,int[][] arr)
